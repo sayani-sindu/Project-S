@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
+const {hash} = require('bcryptjs')
 
 const userSchema = new mongoose.Schema({ firstName: {
     type: String,
@@ -34,7 +35,17 @@ const userSchema = new mongoose.Schema({ firstName: {
           throw new Error("password is not strong");
         }
       },
+      
   }});
+
+// hashing the password before saving to the database
+userSchema.pre('save', async function(next){
+
+    const hashedPassword =  await hash(this.password, 10)
+    this.password = hashedPassword
+
+    next()
+})
 const User = mongoose.model('User', userSchema);
 
 module.exports = { User };
