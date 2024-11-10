@@ -1,17 +1,33 @@
-const User = require('../models/user.js')
+const User = require("../models/user");
 
+const createUser = async (firstName, lastName, emailID, password) => {
+  try {
+    const user = new User({
+      firstName,
+      lastName,
+      emailID,
+      password,
+    });
+    await user.save();
+    return user;
+  } catch (error) {
+    throw new Error("Error creating user: " + error.message);
+  }
+};
 
-const createUser = async (firstName, lastName, emailID, password) =>{
-    try{
-        const user = new user({
-            firstName: firstName,
-            lastName: lastName,
-            emailID: emailID,
-            password: password
-            });
-        await user.save();
+const getUserByEmail = async (emailID) => {
+  try {
+    const user = await User.findOne({ emailID });
+    if (!user) {
+      throw new Error("User not found with this email");
     }
-    catch(error){
-        throw new Error('Provide the details correctly!!!');
-    }
-}
+    return user;
+  } catch (error) {
+    throw new Error("Error finding user: " + error.message);
+  }
+};
+
+module.exports = {
+  createUser,
+  getUserByEmail,
+};
