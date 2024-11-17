@@ -3,21 +3,19 @@ const { createUser, getUserByEmail } = require("../repositories/userRepo");
 const { validateSignUpData } = require("../utils/validation");
 const dotenv = require("dotenv");
 dotenv.config();
-const createUserService = (data) => {
-  const createService = async (data) => {
-    try {
-      const user = await createUser(data);
-      return user;
-    } catch (err) {
-      console.log(err);
-      return res.status(500).json({
-        message: "something went wrong",
-        data: {},
-        success: false,
-        err: error,
-      });
-    }
-  };
+const createUserService = async (data) => {
+  try {
+    const user = await createUser(data);
+    return user;
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: "something went wrong",
+      data: {},
+      success: false,
+      err: error,
+    });
+  }
 };
 
 const signUpValidation = (data) => {
@@ -36,4 +34,4 @@ const verifyToken = (token) => {
   }
 };
 
-module.exports = {createUserService,signUpValidation,verifyToken};
+module.exports = { createUserService, signUpValidation, verifyToken };
