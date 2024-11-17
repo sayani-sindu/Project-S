@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
-const { hash } = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const dotenv = require('dotenv');
+dotenv.config();
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -42,13 +44,13 @@ const userSchema = new mongoose.Schema({
 
 // hashing the password before saving to the database
 userSchema.pre("save", async function (next) {
-  const hashedPassword = await hash(this.password, 10);
+  const hashedPassword = await bcrypt.hash(this.password, 10);
   this.password = hashedPassword;
 
   next();
 });
 
-userSchema.methods.getJWT = () => {
+userSchema.methods.getJWT = async function () {
   const payload = {
     userId: this._id,
     emailID: this.emailID,
@@ -61,7 +63,7 @@ userSchema.methods.getJWT = () => {
 };
 
 userSchema.methods.comparePassword = async function (password) {
-  return bcrypt.compare(password, this.password);
+  return bcrypt.compare(Password, this.password);
 };
 
 const User = mongoose.model("User", userSchema);
