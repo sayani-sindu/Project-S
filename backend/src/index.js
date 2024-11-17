@@ -1,11 +1,7 @@
-const express = require("express");
-const app = express();
+const app = require('./app')
+const dotenv = require('dotenv');
+dotenv.config();
 
-//import Routes
-const healthCheckRoutes = require("./routes/healthcheck.routes");
-
-app.use("api/v1/healthcheck", healthCheckRoutes);
-
-app.listen(3000, () => {
-  console.log("Server Started");
-});
+app.listen(process.env.PORT,()=>{
+    console.log("Server Started")
+})
