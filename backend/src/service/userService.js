@@ -1,30 +1,31 @@
 const { User } = require("../models/user");
-const { createUser, getUserByEmail } = require("../repositories/userRepo");
+const {
+  createUser,
+  getUserByEmail,
+  findExistedUser,
+} = require("../repositories/userRepo");
+const { ApiError } = require("../utils/ApiError");
 const { validateSignUpData } = require("../utils/validation");
 const dotenv = require("dotenv");
 dotenv.config();
 const createUserService = async (data) => {
   try {
-    const user = await createUser(data);
-    return user;
+    const { firstName, lastName, emailId, password } = data.body;
+    await validateSignUpData(data);
+    const userExists = await findExistedUser(emailId);
+    if (userExists) {
+      throw new Error("User already Exists");
+    }
+    const user = await createUser({ firstName, lastName, emailId, password });
+    const token = await user.getJWT();
+
+    return { user, token };
   } catch (err) {
     console.log(err);
-    return res.status(500).json({
-      message: "something went wrong",
-      data: {},
-      success: false,
-      err: error,
-    });
+    return new ApiError(404, "user not created", err);
   }
 };
 
-const signUpValidation = (data) => {
-  try {
-    validateSignUpData(data);
-  } catch (err) {
-    throw new Error(err);
-  }
-};
 const verifyToken = (token) => {
   try {
     const decodeObj = jwt.verify(token, JWT_SECRET_KEY);
@@ -34,4 +35,4 @@ const verifyToken = (token) => {
   }
 };
 
-module.exports = { createUserService, signUpValidation, verifyToken };
+module.exports = { createUserService, verifyToken };

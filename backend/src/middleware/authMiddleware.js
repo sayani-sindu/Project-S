@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const { getUserByEmail } = require("../repositories/userRepo");
 const { verifyToken } = require("../service/userService");
+const { ApiError } = require("../utils/ApiError");
 const userAuth = async (req, res, next) => {
   try {
     const { token } = req.cookies;
@@ -16,7 +17,7 @@ const userAuth = async (req, res, next) => {
     next();
   } catch (err) {
     console.error("Authentication Error");
-    res.status(401).send("error" + err.message);
+    throw new ApiError("");
   }
 };
 module.exports = {

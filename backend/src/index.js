@@ -1,7 +1,16 @@
-const app = require('./app')
-const dotenv = require('dotenv');
-dotenv.config();
+const  app  = require("./app");
+const { connect } = require("./config/db");
 
-app.listen(process.env.PORT,()=>{
-    console.log("Server Started")
-})
+
+const startServer = async () => {
+  try {
+    await connect();
+    console.log("database");
+    await app.listen(3000, () => {
+      console.log("Server Started");
+    });
+  } catch (error) {
+    process.exit(1);
+  }
+};
+startServer();

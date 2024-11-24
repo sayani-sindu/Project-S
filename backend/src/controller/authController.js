@@ -1,22 +1,26 @@
-const {
-  signUpValidation,
-  createUserService,
-} = require("../service/userService");
-
-const bcrypt = require("bcrypt");
+const { createUserService } = require("../service/userService");
+const { ApiError } = require("../utils/ApiError");
+const { ApiResponse } = require("../utils/ApiResponse");
 
 const signUpController = async (req, res) => {
   try {
-    signUpValidation(req);
-    const newUser = await createUserService(req);
-    const token = await newUser.getJWT();
-
+   
+    console.log(req.body);
+    const { newUser, token } = await createUserService(req);
     res.cookie("token", token, {
       expires: new Date(Date.now() + 8 * 3600000),
       httpOnly: true,
     });
-    res.json({ message: "User added successfully!", data: savedUser });
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, newUser, "User Registered "));
   } catch (err) {
-    res.status(400).send("ERROR: " + err.message);
+    return res.status(400).json(new ApiError(400, "Error", err.message));
   }
+};
+const loginController = async (req, res) => {};
+module.exports = {
+  signUpController,
+  loginController,
 };

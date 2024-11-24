@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 dotenv.config();
 
 const userSchema = new mongoose.Schema({
@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     maxLength: 50,
   },
-  emailID: {
+  emailId: {
     type: String,
     required: true,
     unique: true,
@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
       }
     },
   },
-  Password: {
+  password: {
     type: String,
     required: true,
     minLength: 8,
@@ -55,17 +55,20 @@ userSchema.methods.getJWT = async function () {
     userId: this._id,
     emailID: this.emailID,
   };
-
-  const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, {
-    expiresIn: "7d",
-  });
-  return token;
+  try {
+    const token = jwt.sign(payload, "shhhh", {
+      expiresIn: "7d",
+    });
+    return token;
+  } catch (error) {
+    throw new ApiError("404", "Token Generation error", error);
+  }
 };
 
 userSchema.methods.comparePassword = async function (password) {
-  return bcrypt.compare(Password, this.password);
+  return bcrypt.compare(password, this.password);
 };
 
 const User = mongoose.model("User", userSchema);
 
-module.exports = { User };
+module.exports = User;

@@ -4,4 +4,4 @@ const router = express.Router();
 
 router.route("/").get(healthcheck);
 
-module.exports = { router };
+module.exports =  router ;
