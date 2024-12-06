@@ -1,3 +1,4 @@
+const { default: isEmail } = require("validator/lib/isEmail");
 const { User } = require("../models/user");
 const {
   createUser,
@@ -26,13 +27,38 @@ const createUserService = async (data) => {
   }
 };
 
+const verifyUser = async (req) => {
+  const { emailId, password } = req.body;
+  if (!isEmail(emailId)) {
+    throw new ApiError(401, "please input  valid email address");
+  }
+  console.log(emailId);
+  try {
+    const user = await getUserByEmail(emailId);
+   
+    if (!user) {
+      throw new ApiError(404, "No user found");
+    }
+
+    const isvalidPassword = await user.comparePassword(password);
+    if (!isvalidPassword) {
+      throw new ApiError(401, "Password is Not Correct");
+    }
+    const token = await user.getJWT();
+    
+    return { token, user };
+  } catch (error) {
+    throw new Error("User not found" + error);
+  }
+};
+
 const verifyToken = (token) => {
   try {
-    const decodeObj = jwt.verify(token, JWT_SECRET_KEY);
+    const decodeObj = jwt.verify(token, "shhhh");
     return decodeObj;
   } catch (err) {
     throw new Error(err);
   }
 };
 
-module.exports = { createUserService, verifyToken };
+module.exports = { createUserService, verifyToken, verifyUser };

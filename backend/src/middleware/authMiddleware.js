@@ -10,9 +10,9 @@ const userAuth = async (req, res, next) => {
       return res.status(401).send("Please login");
     }
     const decodeObj = verifyToken(token);
-    const { emailID } = decodeObj;
+    const { emailId } = decodeObj;
 
-    const user = getUserByEmail(emailID);
+    const user = getUserByEmail(emailId);
     req.user = user;
     next();
   } catch (err) {

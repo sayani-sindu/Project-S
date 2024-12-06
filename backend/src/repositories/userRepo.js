@@ -15,7 +15,7 @@ const createUser = async ({ firstName, lastName, emailId, password }) => {
   }
 };
 
-const getUserByEmail = async (emailID) => {
+const getUserByEmail = async (emailId) => {
   try {
     const user = await User.findOne({ emailId });
     if (!user) {
@@ -23,7 +23,7 @@ const getUserByEmail = async (emailID) => {
     }
     return user;
   } catch (error) {
-    throw new Error("Error finding user: " + error.message);
+    throw new Error("Error finding user: ", error.message);
   }
 };
 const findExistedUser = async (emailId) => {

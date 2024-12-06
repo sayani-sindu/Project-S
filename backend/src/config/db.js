@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
-
 let isconnected = false;
-
 const connect = async () => {
   if (isconnected) {
     console.log("Already connected to the database");
