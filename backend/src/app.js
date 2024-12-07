@@ -28,6 +28,7 @@ app.use(errorHandler);
 const io = GameSocketService(httpServer);
 io.on("connection", (socket) => {
   socket.emit("connected", "Hello World");
+  
 });
 
 module.exports = { httpServer };
