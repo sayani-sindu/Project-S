@@ -1,3 +1,3 @@
-import { legacy_createStore as createStore } from "redux";
+// import { legacy_createStore as createStore } from "redux";
 
-const store = createStore(reducer);
+// const store = createStore(reducer);

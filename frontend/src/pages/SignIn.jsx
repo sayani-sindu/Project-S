@@ -1,6 +1,9 @@
+import SignInForm from '../Components/SignInForm.jsx'
 const SignIn = () => {
     return(<>
-    SignIn
+    <div className='flex justify-center items-center min-h-screen bg-gray-100 ' >
+    <SignInForm />
+    </div>
 
     </>)
 

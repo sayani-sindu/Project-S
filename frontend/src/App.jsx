@@ -8,9 +8,9 @@ function App() {
   return (
 
     <>
-    <Provider>
+ 
     <RoutersContainer  />
-    </Provider>
+
    
 
       
