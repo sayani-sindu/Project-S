@@ -1,6 +1,7 @@
 require('dotenv').config({ path: '../.env' }); 
 const  app  = require("./app");
 const { connect } = require("./config/db");
+const {redisConnect} = require("../src/config/redis");
 
 
 const startServer = async () => {
