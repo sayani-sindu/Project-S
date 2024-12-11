@@ -21,14 +21,20 @@ const authRouter = require("./routes/v1/auth.routes");
 
 const healthCheckRoutes = require("./routes/v1/healthcheck.routes");
 const { errorHandler } = require("./middleware/errorHandler");
+const { createGame } = require("./controller/createGame");
 app.use("/api/v1/healthcheck", healthCheckRoutes);
 app.use("/api/v1/auth", authRouter);
 app.use(errorHandler);
 
+
 const io = GameSocketService(httpServer);
 io.on("connection", (socket) => {
   socket.emit("connected", "Hello World");
+  createGame(socket)
+
   
 });
+
+
 
 module.exports = { httpServer };
