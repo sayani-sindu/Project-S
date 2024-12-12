@@ -5,7 +5,7 @@ function Navigation() {
         <Link to="/" >Home</Link>
         <Link to="/Game"className="m-3">Games</Link>
         <Link to="/signin">Sign In</Link>
-        <Link to="/signout">Sign Out</Link>
+        <Link to="/signup">Create Account</Link>
       </nav>
     );
   }

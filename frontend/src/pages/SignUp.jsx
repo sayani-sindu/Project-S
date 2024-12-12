@@ -1,4 +1,6 @@
 import { Card, CardContent, Typography } from "@mui/joy";
+import SignUpForm from "../Components/SignUpForm.jsx";
+
 import Button from "@mui/joy/Button";
 import Link from "@mui/joy/Link";
 import FormControl from "@mui/joy/FormControl";
@@ -7,40 +9,8 @@ import Input from "@mui/joy/Input";
 const SignInForm = () => {
   return (
     <>
-      <div className="border-black text-gray-950 w-auto rounded	 ">
-        <Card>
-          <Typography className="text-black text-center">
-            {" "}
-            Create Your Account{" "}
-          </Typography>
-          <form action="">
-            <FormControl className="mb-5">
-              <FormLabel>First Name</FormLabel>
-              <Input
-                name="email"
-                type="email"
-                placeholder="Please Enter your Email"
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel>Password</FormLabel>
-              <Input
-                className="mb-[20px]"
-                name="password"
-                type="password"
-                placeholder="Please enter your password"
-              />
-            </FormControl>
-            <Button className="mb-[20px] block">Log in</Button>
-            <Typography
-              endDecorator={<Link href="/signup">Sign up</Link>}
-              fontSize="sm"
-              sx={{ alignSelf: "center" }}
-            >
-              Don't have an account?
-            </Typography>
-          </form>
-        </Card>
+      <div className="flex justify-center items-center min-h-screen bg-gray-100 ">
+        <SignUpForm />
       </div>
     </>
   );
