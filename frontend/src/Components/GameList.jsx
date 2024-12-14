@@ -6,6 +6,8 @@ import {
   AspectRatio,
   CardOverflow,
 } from "@mui/joy";
+import { Link } from "react-router-dom";
+
 
 const GameList = () => {
   return (
@@ -16,6 +18,7 @@ const GameList = () => {
     </div>
 
       <Card sx={{ maxWidth: 345 }}>
+       <Link  to="/Quiz">
         <CardOverflow>
           <AspectRatio sx={{ minWidth: 200 }}>
             <img src="" srcSet=" 2x" loading="lazy" alt="" />
@@ -29,7 +32,7 @@ const GameList = () => {
           <Typography variant="body2" sx={{ color: "text.secondary" }}>
             Create Quizzes and Play with your friends
           </Typography>
-        </CardContent>
+        </CardContent></Link>
       </Card>
     </>
   );
