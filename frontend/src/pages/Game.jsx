@@ -4,10 +4,8 @@ import GameList from "../Components/GameList";
 const Game = () => {
   return (
     <>
-      <div>
-        <Typography gutterBottom variant="h5" component="div">
-          Game
-        </Typography>
+      <div className="">
+
         <GameList />
       </div>
     </>

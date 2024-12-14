@@ -10,6 +10,11 @@ import {
 const GameList = () => {
   return (
     <>
+    <div className="mb-2">
+    <Typography level="h2"  > Games </Typography>
+
+    </div>
+
       <Card sx={{ maxWidth: 345 }}>
         <CardOverflow>
           <AspectRatio sx={{ minWidth: 200 }}>
