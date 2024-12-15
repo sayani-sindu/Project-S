@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 const GameList = () => {
   return (
     <>
+    
     <div className="mb-2">
     <Typography level="h2"  > Games </Typography>
 

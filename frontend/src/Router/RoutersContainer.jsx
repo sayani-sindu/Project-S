@@ -6,8 +6,10 @@ import Game from "../pages/Game";
 import PageNotFound from "../Components/PageNotFound";
 import { useSelector } from "react-redux";
 import store from "../Store.js/Store";
-import QuizGame from "../Components/QuizGame";
-import CreateQuiz from "../Components/CreateQuiz";
+import QuizGame from "../pages/QuizGame";
+import CreateQuiz from "../pages/CreateQuiz";
+import JoinQuiz from "../pages/JoinQuiz";
+import StartQuiz from "../pages/StartQuiz";
 const RoutersContainer = () => {
   let isLoggedIn = useSelector((store) => {
     return store.isLoggedIn;
@@ -19,7 +21,11 @@ const RoutersContainer = () => {
 
         <Route path="/signup" element={<SignUp />} />
         <Route path="/Game" element={<Game />}></Route>
-        <Route path="/Quiz" element={<QuizGame />} />
+        <Route path="/Quiz" element={<QuizGame />}>
+          <Route path="create-quiz" element={<CreateQuiz />} />
+          <Route path="join-quiz" element={<JoinQuiz />} />
+          <Route path="start-quiz" element={<StartQuiz />} />
+        </Route>
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>
