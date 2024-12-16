@@ -5,18 +5,13 @@ import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
 import { useDispatch } from "react-redux";
+import { login } from "../reducer/loginreducer";
 const SignInForm = () => {
   let dispatch = useDispatch()
 
-  const loginActionCreator = ()=>{
-    return{
-      type:'LOGIN',
-      payload:true,
-    }
-  }
+  
  const  loginButtonHandler = () => {
-    const loginObject = loginActionCreator()
-    dispatch(loginObject)
+    dispatch(login(true));
  }
   return (
     <>
