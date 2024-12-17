@@ -2,6 +2,7 @@ import { Button, Box, Typography } from "@mui/joy";
 import { Add } from "@mui/icons-material";
 import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
 import React from "react";
+import QuestionOptions from "./QuestionsOptions.jsx"
 const QuestionAdding = () => {
   let [count, setCount] = React.useState(0);
 
@@ -34,7 +35,7 @@ const QuestionAdding = () => {
           Remove Question
         </Button>
         <Typography level="h4">Number of Questions: {count}</Typography>
-        
+        {Array(count).fill(<QuestionOptions/>)}
       </Box>
     </>
   );

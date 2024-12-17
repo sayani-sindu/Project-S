@@ -5,8 +5,8 @@ import { useDispatch } from "react-redux";
 const QuizName = () => {
     const dispatch = useDispatch();
     const onBlurHandler = (e) => {
-        let  actionObj = setQuizName(e.target.value)
-        dispatch(actionObj);
+        
+        dispatch();
     }
             
           

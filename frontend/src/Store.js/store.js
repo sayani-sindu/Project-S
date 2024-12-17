@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import loginReducer from '../reducer/loginreducer';
-import quizReducer from '../reducer/quizReducer';
+import quizCreationSlice from '../reducer/quizReducer';
 
 const store = configureStore({
   reducer: {
     login: loginReducer,
-    quiz: quizReducer,
+    quiz: quizCreationSlice.reducer,
   },
 });
 
