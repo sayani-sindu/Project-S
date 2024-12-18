@@ -2,7 +2,7 @@ const express = require('express')
 
 const router = express.Router();
 
-router.route("/post-question").post();
-router.route("/get-question").get();
+router.route("/quiz").post();
+router.route("/quiz").get();
 
 module.exports = router;
