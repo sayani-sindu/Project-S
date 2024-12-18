@@ -4,7 +4,15 @@ import Link from '@mui/joy/Link';
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
+import { useDispatch } from "react-redux";
+import { login } from "../reducer/loginreducer";
 const SignInForm = () => {
+  let dispatch = useDispatch()
+
+  
+ const  loginButtonHandler = () => {
+    dispatch(login(true));
+ }
   return (
     <>
       <div className="border-black text-gray-950 w-auto rounded	 ">
@@ -28,7 +36,7 @@ const SignInForm = () => {
                 placeholder="Please enter your password"
               />
             </FormControl>
-            <Button className="mb-[20px] block">Log in</Button>
+            <Button className="mb-[20px] block" onClick={loginButtonHandler} >Log in</Button>
             <Typography 
 
               endDecorator={<Link href="/signup" >Sign up</Link>}

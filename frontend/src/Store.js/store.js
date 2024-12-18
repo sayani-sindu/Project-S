@@ -1,3 +1,12 @@
-import { legacy_createStore as createStore } from "redux";
+import { configureStore } from '@reduxjs/toolkit';
+import loginReducer from '../reducer/loginreducer';
+import quizCreationSlice from '../reducer/quizReducer';
 
-const store = createStore(reducer);
+const store = configureStore({
+  reducer: {
+    login: loginReducer,
+    quiz: quizCreationSlice.reducer,
+  },
+});
+
+export default store;
