@@ -12,13 +12,13 @@ const Navigation = () => {
     dispatch(actionObj);
   };
   return (
-    <nav>
+    <nav className="m-4 p-2 box-border border  ">
       <Link to="/">Home</Link>
       <Link to="/Game" className="m-3">
         Games
       </Link>
-      <Link to="/signin">Sign In</Link>
-      <Link to="/signup">Create Account</Link>
+      <Link to="/signin" className="m-2">Sign In</Link>
+      <Link to="/signup" className="m-2">Create Account</Link>
       <button onClick={logout}>Log Out</button>
     </nav>
   );
