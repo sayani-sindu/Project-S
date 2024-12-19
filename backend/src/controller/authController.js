@@ -31,7 +31,7 @@ const loginController = async (req, res) => {
       expires: new Date(Date.now() + 8 * 3600000),
       httpOnly: true,
     });
-    return res.status(200).json(new ApiResponse(200, `User loggedIn ${user} `));
+     return res.status(200).json(new ApiResponse(200, `User loggedIn ${user} `));
   } catch (error) {
     return res
       .status(400)

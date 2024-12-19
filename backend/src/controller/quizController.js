@@ -13,6 +13,7 @@ const postQuestion = async(req, res) => {
         
         user.Quizes.push(id);
         await user.save();
+        
 
     }
     catch(error){
