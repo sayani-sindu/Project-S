@@ -6,6 +6,7 @@ import { setQuestions } from "../../reducer/quizSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import QuestionOptions from "./QuestionsOptions.jsx"
 const QuestionAdding = () => {
+  const dispatch = useDispatch();
   const questions = useSelector((state) => state.quiz.questions);
 
   const handleAddQuestion = () => {
@@ -21,6 +22,11 @@ const QuestionAdding = () => {
       const newQuestions = questions.slice(0, -1); 
       dispatch(setQuestions(newQuestions)); 
     }
+  };
+  const handleQuestionChange = (index, updatedQuestion) => {
+    const newQuestions = [...questions];
+    newQuestions[index] = updatedQuestion;
+    dispatch(setQuestions(newQuestions));
   };
   return (
     <>
@@ -42,7 +48,7 @@ const QuestionAdding = () => {
         >
           Remove Question
         </Button>
-        <Typography level="h4">Number of Questions: {count}</Typography>
+        <Typography level="h4">Number of Questions: </Typography>
         {questions.map((question, index) => (
         <QuestionOptions
           key={index}

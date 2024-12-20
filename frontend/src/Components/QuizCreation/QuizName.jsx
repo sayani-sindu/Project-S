@@ -10,7 +10,7 @@ const QuizName = () => {
     dispatch(setQuizName(quizName));
   };
   const handleQuizNameChange = (e) => {
-    setQuizNameState(e.target.value); 
+    setQuizName(e.target.value); 
   };
 
   return (
