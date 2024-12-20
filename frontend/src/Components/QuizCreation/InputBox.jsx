@@ -1,16 +1,20 @@
-import { FormControl,FormLabel,Input, Typography, Box } from "@mui/joy";
 
-const InputBox = (props)=>{
-    return(<>
-   <FormControl>
-            <FormLabel>
-                {props.label}
-            </FormLabel>
+import React from "react";
+import { FormControl, FormLabel, Input } from "@mui/joy";
 
-                <Input type={props.type} onBlur={props.onBlurHandler}  placeholder={props.placeholder} /> 
-                     
-        </FormControl> 
-    </>
-    )
-}
+const InputBox = ({ label, placeholder, value, onChange, onBlurHandler, type }) => {
+  return (
+    <FormControl>
+      <FormLabel>{label}</FormLabel>
+      <Input
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange} 
+        onBlur={onBlurHandler} 
+      />
+    </FormControl>
+  );
+};
+
 export default InputBox;

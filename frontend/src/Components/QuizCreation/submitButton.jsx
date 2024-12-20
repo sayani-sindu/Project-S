@@ -5,3 +5,4 @@ const SubmitButton = () =>{
        <Button variant="contained">Submit</Button>
     </>)
 }
+export default SubmitButton

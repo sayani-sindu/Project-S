@@ -36,6 +36,7 @@ const QuestionAdding = () => {
         </Button>
         <Typography level="h4">Number of Questions: {count}</Typography>
         {Array(count).fill(<QuestionOptions/>)}
+        
       </Box>
     </>
   );
