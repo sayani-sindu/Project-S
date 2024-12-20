@@ -10,7 +10,7 @@ import InputBox from "../Components/QuizCreation/InputBox";
 import QuestionAdding from "../Components/QuizCreation/QuestionsAdding";
 import QuizGame from "./QuizGame";
 import QuizName from "../Components/QuizCreation/QuizName";
-import SubmitButton from "../Components/QuizCreation/submitButton";
+import SubmitButton from "../Components/QuizCreation/SubmitButton";
 const CreateQuiz = () => {
   return (
     <>
