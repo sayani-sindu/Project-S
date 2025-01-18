@@ -1,25 +1,35 @@
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../reducer/authSlice";
 const Navigation = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { isLoggedIn, user } = useSelector((state) => state.auth);
   const logout = () => {
-    navigate('/')
-    let actionObj = {
-      type:'LOGOUT',
-      payload: false,
-    }
-    dispatch(actionObj);
+    dispatch(logout());
+    navigate("/signin");
   };
   return (
     <nav className="m-4 p-2 box-border border  ">
-      <Link to="/">Home</Link>
-      <Link to="/Game" className="m-3">
-        Games
-      </Link>
-      <Link to="/signin" className="m-2">Sign In</Link>
-      <Link to="/signup" className="m-2">Create Account</Link>
-      <button onClick={logout}>Log Out</button>
+      <Link to="/home">Home</Link>
+      {isLoggedIn ? (
+        <>
+          <Link to="/Game" className="m-3">
+            Games
+          </Link>
+          <button onClick={logout}>Log Out</button>
+
+        </>
+      ) : (
+        <>
+          <Link to="/signin" className="m-2">
+            Sign In
+          </Link>
+          <Link to="/signup" className="m-2">
+            Create Account
+          </Link>
+        </>
+      )}
     </nav>
   );
 };

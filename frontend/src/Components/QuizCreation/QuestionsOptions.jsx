@@ -4,7 +4,6 @@ const QuestionOptions = ({ index, question, onChange }) => {
   // This function handles changes to question text or options
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(e)
     onChange(index, name, value); 
   };
 

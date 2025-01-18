@@ -6,9 +6,10 @@ import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import "./sign-up.css";
+import axios from "axios";
 const SignUpForm = () => {
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
   const [userData, setUserData] = React.useState({
     firstName: "",
     LastName: "",
@@ -22,26 +23,32 @@ const SignUpForm = () => {
       [name]: value,
     });
   };
-  const isDisabled = !(userData.firstName && userData.lastName && userData.email && userData.password);
-
+  const isDisabled = !(
+    userData.firstName &&
+    userData.LastName &&
+    userData.emailId &&
+    userData.password
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const URL = "http://127.0.0.1:3000/auth/register";
+    const URL = "http://127.0.0.1:3000/api/v1/auth/register";
     try {
       const response = await axios.post(
         URL,
-        userData,
         {
-          withCredentials: true,
-        }
+          firstName: userData.firstName,
+          lastName: userData.LastName,
+          emailId: userData.emailId,
+          password: userData.password,
+        },
+        
       );
       navigate("/");
 
       console.log(response);
     } catch (error) {
       console.error("Error registering user", error);
-      alert("Registration failed, please try again.");
     }
   };
 
@@ -94,13 +101,13 @@ const SignUpForm = () => {
               onChange={onChangeHandler}
             />
           </FormControl>
-          <Button
-            className="mb-[20px] block"
-            onClick={handleSubmit}
+          <button
+            className={isDisabled ? "disable" : "enable"}
             disabled={isDisabled}
+            onClick={handleSubmit}
           >
-            Create Account
-          </Button>
+            Sign Up
+          </button>
           <Typography
             endDecorator={<Link href="/signin">Sign in</Link>}
             fontSize="sm"

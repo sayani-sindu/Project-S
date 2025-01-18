@@ -4,16 +4,22 @@ import Link from "@mui/joy/Link";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
-import { useDispatch } from "react-redux";
-import { login } from "../reducer/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../reducer/authSlice";
 import { useState } from "react";
+import "./sign-up.css";
+
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const SignInForm = () => {
+  let dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loading, error, isLoggedIn } = useSelector((state) => state.auth);
   const [data, setData] = useState({
     emailId: "",
     password: "",
   });
-  let dispatch = useDispatch();
+  const isDisabled = !(data.emailId && data.password);
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -26,16 +32,11 @@ const SignInForm = () => {
   const loginButtonHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:3000/auth/login",
-        setData,
-        { withCredentials: true }
-      );
-      console.log(response.data);
-      localStorage.setItem("token", "null");
-
-      localStorage.setItem("token", response.data.data.token);
-
+      const credentials = data;
+      dispatch(loginUser(credentials));
+      if (isLoggedIn) {
+        navigate("/");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -65,9 +66,13 @@ const SignInForm = () => {
                 placeholder="Please enter your password"
               />
             </FormControl>
-            <Button className="mb-[20px] block" onClick={loginButtonHandler}>
-              Log in
-            </Button>
+            <button
+              className={isDisabled ? "disable" : "enable"}
+              onClick={loginButtonHandler}
+              disabled={isDisabled}
+            >
+              Sign In
+            </button>
             <Typography
               endDecorator={<Link href="/signup">Sign up</Link>}
               fontSize="sm"

@@ -23,7 +23,7 @@ const createUserService = async (data) => {
     return { user, token };
   } catch (err) {
     console.log(err);
-    return new ApiError(404, "user not created", err);
+    throw new ApiError(404, "user not created", err);
   }
 };
 

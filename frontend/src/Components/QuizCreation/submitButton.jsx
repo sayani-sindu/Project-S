@@ -12,7 +12,7 @@ const SubmitButton = () => {
     const { quizName, questions } = quiz;
     console.log(quizName)
     console.log(questions)
-    const response = axios.post("",{quizName,questions} ,{
+    const response = axios.post("http://127.0.0.1:3000/api/v1/quiz",{quizName,questions} ,{
       headers: {
         'Content-Type': 'multipart/form-data',
         "Authorization":token

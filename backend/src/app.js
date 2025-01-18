@@ -15,7 +15,7 @@ app.use(cookieParser());
 const { GameSocketService } = require("./config/socketio");
 const http = require("http");
 const httpServer = http.createServer(app);
-
+const quizRouter = require("../src/routes/v1/quiz.routes");
 //import Routes
 const authRouter = require("./routes/v1/auth.routes");
 
@@ -24,6 +24,8 @@ const { errorHandler } = require("./middleware/errorHandler");
 const { createGame } = require("./controller/createGame");
 app.use("/api/v1/healthcheck", healthCheckRoutes);
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/quiz", quizRouter);
+
 app.use(errorHandler);
 
 const io = GameSocketService(httpServer);
