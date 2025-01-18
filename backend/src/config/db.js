@@ -8,7 +8,6 @@ const connect = async () => {
 
   try {
     const instance = await mongoose.connect("mongodb://localhost:27017/projectS");
-
     isconnected = true;
     console.log("Database connected successfully");
     return instance;

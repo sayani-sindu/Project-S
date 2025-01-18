@@ -9,10 +9,12 @@ const postQuestion = async(req, res) => {
     try{
         const quiz = await createQuiz( req );
         const user = req.user;
+        
         const id = quiz._id;
         
         user.Quizes.push(id);
         await user.save();
+
         
 
     }

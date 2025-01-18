@@ -1,7 +1,7 @@
 const { redisConnect } = require('../config/redis');
 
 
-const startGame =  (socket) => {
+const createGame =  (socket) => {
   socket.on('Create_Game', async () => {
     
      

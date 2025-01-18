@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import loginReducer from '../reducer/loginreducer';
+import authReducer from '../reducer/authSlice';
 
 import quizReducer from '../reducer/quizSlice';
 const loggerMiddleware = (store) => (next) => (action) => {
@@ -10,8 +10,8 @@ const loggerMiddleware = (store) => (next) => (action) => {
 };
 const store = configureStore({
   reducer: {
-    login: loginReducer,
-    quiz: quizReducer,
+    auth:authReducer,
+    quiz:quizReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(loggerMiddleware),

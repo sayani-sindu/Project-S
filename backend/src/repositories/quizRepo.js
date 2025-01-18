@@ -14,5 +14,13 @@ const createQuiz = async ( req ) => {
     }
 
 }
-
-module.exports = createQuiz;
+const getQuiz = async () => {
+    try {
+      const quizzes = await Quiz.find();
+      return quizzes;
+    } catch (error) {
+      throw new ApiError(500, "Error Fetching Quizzes: " + error.message);
+    }
+ };
+ 
+module.exports = {createQuiz,getQuiz};

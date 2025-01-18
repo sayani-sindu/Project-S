@@ -11,13 +11,11 @@ import CreateQuiz from "../pages/CreateQuiz";
 import JoinQuiz from "../pages/JoinQuiz";
 import StartQuiz from "../pages/StartQuiz";
 const RoutersContainer = () => {
-  let isLoggedIn = useSelector((store) => {
-    return store.isLoggedIn;
-  });
+
   return (
     <>
       <Routes>
-        <Route path="/" element={isLoggedIn ? <Home /> : <SignIn />} />
+        <Route path="/" element={<SignIn/>} />
 
         <Route path="/signup" element={<SignUp />} />
         <Route path="/Game" element={<Game />}></Route>

@@ -4,30 +4,39 @@ import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
 import React from "react";
 import { setQuestions } from "../../reducer/quizSlice.js";
 import { useDispatch, useSelector } from "react-redux";
-import QuestionOptions from "./QuestionsOptions.jsx"
+import QuestionOptions from "./QuestionsOptions.jsx";
 const QuestionAdding = () => {
-  const dispatch = useDispatch();
   const questions = useSelector((state) => state.quiz.questions);
 
+  const dispatch = useDispatch();
+
   const handleAddQuestion = () => {
-    
-    const newQuestions = [
-      ...questions,
-      { question: "", options: ["", "", "", ""], correctAnswer: "" },
-    ];
-    dispatch(setQuestions(newQuestions));
+    const newQuestion = {
+      question: "",
+      option1: "",
+      option2: "",
+      option3: "",
+      option4: "",
+      correctOption: "",
+    };
+    dispatch(setQuestions([...questions, newQuestion]));
   };
-  const handleRemoveQuestion = () => {
+
+  const handleRemoveLastQuestion = () => {
     if (questions.length > 0) {
-      const newQuestions = questions.slice(0, -1); 
-      dispatch(setQuestions(newQuestions)); 
+      dispatch(setQuestions(questions.slice(0, -1)));
     }
   };
-  const handleQuestionChange = (index, updatedQuestion) => {
-    const newQuestions = [...questions];
-    newQuestions[index] = updatedQuestion;
-    dispatch(setQuestions(newQuestions));
+
+  const handleQuestionChange = (index, field, value) => {
+    const updatedQuestions = [...questions];
+    console.log(index)
+    updatedQuestions[index] = { ...updatedQuestions[index], [field]: value };
+    console.log(updatedQuestions)
+    console.log(updatedQuestions[index])
+    dispatch(setQuestions(updatedQuestions));
   };
+
   return (
     <>
       <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
@@ -42,7 +51,7 @@ const QuestionAdding = () => {
 
         <Button
           variant="solid"
-          onClick={handleRemoveQuestion}
+          onClick={handleRemoveLastQuestion}
           startDecorator={<RemoveOutlinedIcon />}
           size="sm"
         >
@@ -50,14 +59,13 @@ const QuestionAdding = () => {
         </Button>
         <Typography level="h4">Number of Questions: </Typography>
         {questions.map((question, index) => (
-        <QuestionOptions
-          key={index}
-          index={index}
-          question={question}
-          onQuestionChange={handleQuestionChange} // Pass the handler to update question data
-        />
-      ))}
-
+          <QuestionOptions
+            key={index}
+            index={index}
+            question={question}
+            onChange={handleQuestionChange} // Pass the handler to update question data
+          />
+        ))}
       </Box>
     </>
   );

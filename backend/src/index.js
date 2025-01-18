@@ -6,7 +6,8 @@ const {redisConnect} = require("../src/config/redis");
 
 const startServer = async () => {
   try {
-    await connect();
+   const con =  await  connect();
+      console.log(con)
     console.log("database");
     await httpServer.listen(3000, () => {
       console.log("Server Started");

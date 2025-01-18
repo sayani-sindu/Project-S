@@ -9,11 +9,7 @@ const { ApiResponse } = require("../utils/ApiResponse");
 const signUpController = async (req, res) => {
   try {
     const { newUser, token } = await createUserService(req);
-    res.cookie("token", token, {
-      expires: new Date(Date.now() + 8 * 3600000),
-      httpOnly: true,
-    });
-
+   
     return res
       .status(200)
       .json(new ApiResponse(200, newUser, "User Registered "));

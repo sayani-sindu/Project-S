@@ -11,7 +11,15 @@ import QuestionAdding from "../Components/QuizCreation/QuestionsAdding";
 import QuizGame from "./QuizGame";
 import QuizName from "../Components/QuizCreation/QuizName";
 import SubmitButton from "../Components/QuizCreation/SubmitButton";
+import { useSelector } from "react-redux";
+import React from "react";
 const CreateQuiz = () => {
+  
+  
+
+  const handleClick = () => {
+    alert(quizName)
+};
   return (
     <>
       <Box className="max-w-3xl mx-auto p-4 space-y-4">
@@ -20,7 +28,9 @@ const CreateQuiz = () => {
         </Typography>
         <QuizName />
         <QuestionAdding />
-        <SubmitButton className="border border-gray-950"></SubmitButton>
+       
+  
+        <SubmitButton className="border border-gray-950" onClick={handleClick}></SubmitButton>
       </Box>
     </>
   );

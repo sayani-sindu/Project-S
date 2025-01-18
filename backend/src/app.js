@@ -26,15 +26,10 @@ app.use("/api/v1/healthcheck", healthCheckRoutes);
 app.use("/api/v1/auth", authRouter);
 app.use(errorHandler);
 
-
 const io = GameSocketService(httpServer);
 io.on("connection", (socket) => {
   socket.emit("connected", "Hello World");
-  createGame(socket)
-
-  
+  createGame(socket);
 });
-
-
 
 module.exports = { httpServer };
