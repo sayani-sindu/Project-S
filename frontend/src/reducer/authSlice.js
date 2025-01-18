@@ -1,14 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-// Initial state
+
 const initialState = {
-  user: null,
-  token: null,
-  isLoggedIn: false,
+  user: JSON.parse(localStorage.getItem("user")) || null,  
+  token: localStorage.getItem("token") || null,  
+  isLoggedIn: !!localStorage.getItem("token"), 
   loading: false,
   error: null,
 };
 
+// Async action for login
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (credentials, { rejectWithValue }) => {
@@ -17,15 +18,14 @@ export const loginUser = createAsyncThunk(
         "http://127.0.0.1:3000/api/v1/auth/login",
         credentials
       );
-      return response.data.data; // Assume the API returns user data and token
+      return response.data.data; 
     } catch (error) {
       console.log(error);
-      return rejectWithValue(error.response.data); // Error handling
+      return rejectWithValue(error.response.data); 
     }
   }
 );
 
-// Create slice with reducers and actions
 const authSlice = createSlice({
   name: "auth",
   initialState: initialState,
@@ -34,6 +34,8 @@ const authSlice = createSlice({
       state.user = null;
       state.token = null;
       state.isLoggedIn = false;
+      localStorage.removeItem("token");  
+      localStorage.removeItem("user");  
     },
   },
   extraReducers: (builder) => {
@@ -46,6 +48,9 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.user = action.payload.user;
         state.token = action.payload.token;
+
+        localStorage.setItem("token", action.payload.token);
+        localStorage.setItem("user", JSON.stringify(action.payload.user)); 
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;

@@ -32,6 +32,18 @@ const io = GameSocketService(httpServer);
 io.on("connection", (socket) => {
   socket.emit("connected", "Hello World");
   createGame(socket);
+  socket.on('disconnect',(reason)=>{
+    console.log(socket.id + "was disconnected")
+  })
+  socket.on("init-game", (newGame, newLeaderboard) => {
+    game = JSON.parse(JSON.stringify(newGame))
+    leaderboard = JSON.parse(JSON.stringify(newLeaderboard))
+    socket.join(game.pin) 
+    hostId = socket.id
+    console.log(
+      "Host with id " + socket.id + " started game and joined room: " + game.pin
+    )
+  })
 });
 
 module.exports = { httpServer };

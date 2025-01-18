@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const User = require("../models/user");
 
-const createQuiz = require("../repositories/quizRepo");
+const {createQuiz} = require("../repositories/quizRepo");
 const { ApiError } = require("../utils/ApiError");
 const { ApiResponse } = require("../utils/ApiResponse");
 

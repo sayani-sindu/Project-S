@@ -9,6 +9,7 @@ const { ApiError } = require("../utils/ApiError");
 const { validateSignUpData } = require("../utils/validation");
 const dotenv = require("dotenv");
 dotenv.config();
+const jwt = require('jsonwebtoken')
 const createUserService = async (data) => {
   try {
     const { firstName, lastName, emailId, password } = data.body;
@@ -55,6 +56,7 @@ const verifyUser = async (req) => {
 const verifyToken = (token) => {
   try {
     const decodeObj = jwt.verify(token, "shhhh");
+    console.log("reach at verify after")
     return decodeObj;
   } catch (err) {
     throw new Error(err);
