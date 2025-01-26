@@ -9,10 +9,15 @@ const quizCreation = async (req, res) => {
   try {
     const quiz = await createQuiz(req);
     const user = req.user;
-
+    console.log(quiz);
     const id = quiz._id;
+    const quizTitle = quiz.quizTitle;
 
-    user.Quizes.push(id);
+    user.Quizes.push({
+      _id: id,
+      QuizTitle: quizTitle,
+    });
+    
     await user.save();
     return res.json(new ApiResponse(201, quiz, "Quiz Saved Successfully"));
   } catch (error) {

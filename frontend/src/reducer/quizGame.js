@@ -1,15 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit';
-
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+const quizfetchDB = createAsyncThunk('quiz/quizFromDb', async () => {
+  const response = await axios('http://localhost:5000/api/quiz/');
+  const data = await response.json();
+  return data;
+});
 const quizGameSlice = createSlice({
   name: 'quiz',
   initialState: { isLoading: true, quizes: [] },
   reducers: {
-    startLoading: (state) => {
-      state.isLoading = true;
-    },
-    endLoading: (state) => {
-      state.isLoading = false;
-    },
+   
+    
     fetchPublicQuizes: (state, action) => {
       state.quizes = action.payload.data;
       state.currentPage = action.payload.currentPage;
@@ -64,5 +65,5 @@ export const {
   commentQuiz,
   deleteQuiz,
   fetchQuiz,
-} = quizSlice.actions;
+} = quizGameSlice.actions;
 export default quizGameSlice.reducer;

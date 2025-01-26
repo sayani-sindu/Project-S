@@ -35,7 +35,7 @@ const RoutersContainer = () => {
       />
       <Route 
         path="/quiz/join-quiz" 
-        element={isLoggedIn ? <JoinQuiz /> : <Navigate to="/signin" />} 
+        element={<JoinQuiz />} 
       />
       <Route 
         path="/quiz/start-quiz" 

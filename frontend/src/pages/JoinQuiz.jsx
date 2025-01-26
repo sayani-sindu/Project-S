@@ -7,13 +7,20 @@ import {
   FormLabel,
   Input,
 } from "@mui/joy";
+import axios from "axios";
 
 const JoinQuiz = () => {
-  const [quizCode, setQuizCode] = useState("");
+  const [quizCode, setQuizCode] = useState({
+    pin: "",
+    name: "",
+  });
 
   const handleJoinQuiz = () => {
-    // Handle joining the quiz with the entered quiz code
-    console.log(`Joining quiz with code: ${quizCode}`);
+   const response = axios.post("http://localhost:8000/join-quiz", quizCode);
+    
+  };
+  const onchangeHandler = (e) => {
+    setQuizCode({ ...quizCode, [e.target.name]: e.target.value });
   };
 
   return (
@@ -25,10 +32,19 @@ const JoinQuiz = () => {
       <FormControl className="mb-5">
         <FormLabel>Enter Quiz Code</FormLabel>
         <Input
-          onChange={(e) => setQuizCode(e.target.value)}
+          onChange={onchangeHandler}
           name="Pin"
-          type="text"
+          type="number"
           placeholder="Please Enter your Pin"
+        />
+      </FormControl>
+      <FormControl className="mb-5">
+        <FormLabel>Name</FormLabel>
+        <Input
+          onChange={onchangeHandler}
+          name="name"
+          type="text"
+          placeholder="Please Enter your Name"
         />
       </FormControl>
 

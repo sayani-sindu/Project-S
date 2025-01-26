@@ -1,0 +1,5 @@
+FROM ubuntu
+Maintainer "Sai"
+RUN apt-get update
+RUN apt-get docker
+RUN docker --version

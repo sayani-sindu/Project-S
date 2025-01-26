@@ -1,4 +1,4 @@
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../reducer/authSlice";
 const Navigation = () => {
@@ -11,14 +11,17 @@ const Navigation = () => {
   };
   return (
     <nav className="m-4 p-2 box-border border  ">
+
       <Link to="/home">Home</Link>
+      <Link to="/join-quiz">Join Quiz</Link>
+
       {isLoggedIn ? (
         <>
           <Link to="/Game" className="m-3">
             Games
           </Link>
-          <button onClick={logout}>Log Out</button>
 
+          <button onClick={logout}>Log Out</button>
         </>
       ) : (
         <>

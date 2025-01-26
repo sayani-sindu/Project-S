@@ -40,12 +40,18 @@ const userSchema = new mongoose.Schema({
   },
   Quizes: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Quiz',
-      default: [],
-
+      
+     _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Quiz"
+      },
+      QuizTitle: {
+        type: String,
+        required: true,
+        trim: true
+      }
     }
-  ]
+  ],
 });
 
 // hashing the password before saving to the database

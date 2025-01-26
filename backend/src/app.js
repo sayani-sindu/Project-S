@@ -22,6 +22,7 @@ const authRouter = require("./routes/v1/auth.routes");
 const healthCheckRoutes = require("./routes/v1/healthcheck.routes");
 const { errorHandler } = require("./middleware/errorHandler");
 const { createGame } = require("./controller/createGame");
+const { joinGame } = require("./controller/joinGame");
 app.use("/api/v1/healthcheck", healthCheckRoutes);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/quiz", quizRouter);
@@ -31,19 +32,17 @@ app.use(errorHandler);
 const io = GameSocketService(httpServer);
 io.on("connection", (socket) => {
   socket.emit("connected", "Hello World");
+
   createGame(socket);
-  socket.on('disconnect',(reason)=>{
+  joinGame(socket);
+
+ socket.on('disconnecting',(reason)=>{
     console.log(socket.id + "was disconnected")
   })
-  socket.on("init-game", (newGame, newLeaderboard) => {
-    game = JSON.parse(JSON.stringify(newGame))
-    leaderboard = JSON.parse(JSON.stringify(newLeaderboard))
-    socket.join(game.pin) 
-    hostId = socket.id
-    console.log(
-      "Host with id " + socket.id + " started game and joined room: " + game.pin
-    )
-  })
+ 
 });
+
+
+  
 
 module.exports = { httpServer };

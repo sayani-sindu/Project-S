@@ -11,12 +11,7 @@ const QuizGame = () => {
             Create Quiz
           </Button>
         </Link>
-        <Link to="join-quiz">
-       
-          <Button variant="solid" size="sm">
-            Join Quiz
-          </Button>
-        </Link>
+        
         <Link to="start-quiz">
         <Button variant="solid" size="sm">
             Start Quiz
