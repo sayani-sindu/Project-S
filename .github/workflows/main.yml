@@ -1,0 +1,59 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - develop
+      - 'feature/*'  # Trigger on push to "develop" and any branch starting with "feature/"
+  pull_request:
+    branches:
+      - develop  # Trigger on pull requests targeting the "develop" branch
+
+jobs:
+  lint:
+    name: Run ESLint
+    runs-on: ubuntu-latest  # Use the latest version of Ubuntu as the environment
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  # This action checks out the repository code
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2  # This action sets up Node.js
+        with:
+          node-version: '16'  # Specify the Node.js version to use (16.x)
+
+      - name: Cache node_modules
+        uses: actions/cache@v2  # Cache dependencies to speed up subsequent runs
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm install  # Install the npm dependencies (e.g., ESLint, project dependencies)
+
+      - name: Run ESLint
+        run: npm run lint  # Run ESLint on the codebase (ensure your lint script exists)
+
+  # You can add a test job if needed:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install  # Install dependencies
+
+      - name: Run Tests
+        run: npm run test  # Run tests (ensure your test script is defined)
+
