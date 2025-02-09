@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Box,
@@ -7,18 +7,48 @@ import {
   FormLabel,
   Input,
 } from "@mui/joy";
-import axios from "axios";
+import { createSocketConnection } from "../services/socketservice";
 
 const JoinQuiz = () => {
   const [quizCode, setQuizCode] = useState({
     pin: "",
     name: "",
   });
+  const [socket, setSocket] = useState(null);
+  const [error, setError] = useState(null);  
+  const [joining, setJoining] = useState(false);  
+
+  useEffect(() => {
+    const socketConnection = createSocketConnection();
+    setSocket(socketConnection);
+
+    
+    socketConnection.onPlayerJoined((response) => {
+      if (response.success) {
+        console.log("Successfully joined the quiz");
+       
+      } else {
+        setError("Failed to join the quiz. Please check the quiz code.");
+      }
+    });
+
+    return () => {
+      socketConnection.disconnect();
+    };
+  }, []);
 
   const handleJoinQuiz = () => {
-   const response = axios.post("http://localhost:8000/join-quiz", quizCode);
-    
+    if (!socket) return;
+
+    setJoining(true);
+    setError(null);  // Reset any previous errors
+
+    // Emit the join-game event with the quiz pin and user name
+    socket.joinGame(quizCode.pin, { username: quizCode.name });
+
+    // We don't need to manually remove listeners anymore because it’s handled inside the `useEffect`
   };
+
   const onchangeHandler = (e) => {
     setQuizCode({ ...quizCode, [e.target.name]: e.target.value });
   };
@@ -33,7 +63,7 @@ const JoinQuiz = () => {
         <FormLabel>Enter Quiz Code</FormLabel>
         <Input
           onChange={onchangeHandler}
-          name="Pin"
+          name="pin"
           type="number"
           placeholder="Please Enter your Pin"
         />
@@ -48,13 +78,19 @@ const JoinQuiz = () => {
         />
       </FormControl>
 
+      {error && (
+        <Typography color="error" className="text-center">
+          {error}
+        </Typography>
+      )}
+
       <Button
         variant="solid"
         onClick={handleJoinQuiz}
-        disabled={quizCode.length < 5}
+        disabled={quizCode.pin.length < 5 || joining}
         fullWidth
       >
-        Join Quiz
+        {joining ? "Joining..." : "Join Quiz"}
       </Button>
     </Box>
   );

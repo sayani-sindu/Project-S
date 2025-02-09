@@ -1,8 +1,9 @@
 import io from 'socket.io-client';
 
-export const createSocketConnection = (token) => {
+
+export const createSocketConnection = () => {
   const socket = io('http://localhost:3000', {
-    auth: { token },
+ 
     transports: ['websocket']
   });
 

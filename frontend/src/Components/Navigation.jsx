@@ -12,14 +12,15 @@ const Navigation = () => {
   return (
     <nav className="m-4 p-2 box-border border  ">
 
-      <Link to="/home">Home</Link>
-      <Link to="/join-quiz">Join Quiz</Link>
+      <Link to="/">Home</Link>
+      <Link to="/quiz/join-quiz">Join Quiz</Link>
 
       {isLoggedIn ? (
         <>
           <Link to="/Game" className="m-3">
             Games
           </Link>
+
 
           <button onClick={logout}>Log Out</button>
         </>
